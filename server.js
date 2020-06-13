@@ -79,7 +79,7 @@ app.post('/image', (req, res) => {
   if (!found) res.status(404).json('No such user');
 });
 
-// Middleware that listens on port 3000
-app.listen(3000, () => {
-  console.log('App is running on port 3000');
+// Middleware that listens on port 5000
+app.listen(5000, () => {
+  console.log('App is running on port 5000');
 });
