@@ -1,7 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
+// Allows CORS for connecting frontend with backend
+app.use(cors())
 // Converts the response body to JSON so Express can read it
 app.use(express.json());
 
@@ -33,7 +36,7 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {
   if (req.body.email === database.users[0].email &&
     req.body.password === database.users[0].password) {
-    res.json('Success');
+    res.json(database.users[0]);
   } else {
     res.status(400).json('Error logging in')
   }
