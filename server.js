@@ -53,6 +53,18 @@ app.post('/signup', (req, res) => {
   res.json(database.users[database.users.length - 1]);
 });
 
+app.get('/profile/:id', (req, res) => {
+  const {id} = req.params;
+  let found = false;
+  database.users.forEach(user => {
+    if (user.id === Number(id)) {
+      found = true;
+      return res.json(user);
+    }
+  })
+  if (!found) res.status(404).json('No such user');
+});
+
 // Middleware that listens on port 3000
 app.listen(3000, () => {
   console.log('App is running on port 3000');
