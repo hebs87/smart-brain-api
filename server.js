@@ -15,7 +15,7 @@ const database = {
       joined: new Date()
     },
     {
-      id: 1,
+      id: 2,
       name: 'Kim',
       email: 'kimjones92@hotmail.co.uk',
       password: 'password',
@@ -26,7 +26,7 @@ const database = {
 }
 
 app.get('/', (req, res) => {
-  res.send('<h1>This is working</h1>');
+  res.send(database.users);
 });
 
 app.post('/signin', (req, res) => {
@@ -36,6 +36,21 @@ app.post('/signin', (req, res) => {
   } else {
     res.status(400).json('Error logging in')
   }
+});
+
+app.post('/signup', (req, res) => {
+  const {name, email, password} = req.body;
+  database.users.push(
+    {
+      id: 3,
+      name: name,
+      email: email,
+      password: password,
+      entries: 0,
+      joined: new Date()
+    }
+  )
+  res.json(database.users[database.users.length - 1]);
 });
 
 // Middleware that listens on port 3000
