@@ -65,16 +65,20 @@ app.get('/profile/:id', (req, res) => {
   if (!found) res.status(404).json('No such user');
 });
 
+app.post('/image', (req, res) => {
+  const {id} = req.body;
+  let found = false;
+  database.users.forEach(user => {
+    if (user.id === Number(id)) {
+      found = true;
+      user.entries++;
+      return res.json(user.entries);
+    }
+  })
+  if (!found) res.status(404).json('No such user');
+});
+
 // Middleware that listens on port 3000
 app.listen(3000, () => {
   console.log('App is running on port 3000');
-})
-
-/*
-ROUTES
-/ --> res = this is working
-/signin --> POST = success/fail
-/register --> POST = user
-/profile/:userId --> GET = user
-/image --> PUT = updated user
-*/
+});
