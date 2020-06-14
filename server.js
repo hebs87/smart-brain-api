@@ -6,6 +6,7 @@ const knex = require('knex');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
+const image = require('./controllers/image');
 
 dotenv.config();
 
@@ -36,17 +37,7 @@ app.post('/signup', (req, res) => register.handleRegister(req, res, db, bcrypt))
 
 app.get('/profile/:id', (req, res) => profile.handleGetProfile(req, res, db));
 
-app.put('/image', (req, res) => {
-  const {id} = req.body;
-  db('users').where('id', '=', id)
-    .increment('entries', 1)
-    // Returns an object
-    .returning('entries')
-    .then(entries => {
-      res.json(entries[0])
-    })
-    .catch(err => res.status(400).json('Unable to get entries'))
-});
+app.put('/image', (req, res) => image.incrementImageCount(req, res, db));
 
 // Middleware that listens on port 5000
 app.listen(5000, () => {
