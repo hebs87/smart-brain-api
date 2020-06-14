@@ -38,7 +38,7 @@ app.get('/profile/:id', (req, res) => profile.handleGetProfile(req, res, db));
 
 app.put('/image', (req, res) => image.incrementImageCount(req, res, db));
 
-// Middleware that listens on port 5000
-app.listen(5000, () => {
-  console.log('App is running on port 5000');
+// Middleware that listens on specified port
+app.listen(process.env.PORT, () => {
+  console.log(`App is running on port ${process.env.PORT}`);
 });
