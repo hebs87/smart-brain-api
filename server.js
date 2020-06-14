@@ -92,14 +92,11 @@ app.post('/signup', (req, res) => {
 
 app.get('/profile/:id', (req, res) => {
   const {id} = req.params;
-  let found = false;
-  database.users.forEach(user => {
-    if (user.id === Number(id)) {
-      found = true;
-      return res.json(user);
-    }
-  })
-  if (!found) res.status(404).json('No such user');
+  db.select('*').from('users').where({id})
+    .then(user => {
+      user.length ? res.json(user[0]) : res.status(400).json('User profile not found')
+    })
+    .catch(err => res.status(400).json('Error getting user profile'));
 });
 
 app.put('/image', (req, res) => {
