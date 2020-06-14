@@ -1,4 +1,4 @@
-const handleSignIn = (req, res, db, bcrypt) => {
+const handleSignIn = (db, bcrypt) => (req, res) => {
   const {email, password} = req.body;
   // Get the email and hash from login and compare the hash with the user's input
   db.select('email', 'hash').from('login')
