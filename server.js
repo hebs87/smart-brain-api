@@ -1,6 +1,20 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex')
+
+dotenv.config();
+
+const postgres = knex({
+  client: 'pg',
+  connection: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  }
+});
 
 const app = express();
 // Allows CORS for connecting frontend with backend
