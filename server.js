@@ -2,7 +2,8 @@ const dotenv = require('dotenv');
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
-const knex = require('knex')
+const knex = require('knex');
+const register = require('./controllers/register');
 
 dotenv.config();
 
@@ -47,38 +48,7 @@ app.post('/signin', (req, res) => {
     .catch(err => res.status(400).json('Wrong credentials'))
 });
 
-app.post('/signup', (req, res) => {
-  const {name, email, password} = req.body;
-  // Hash the password
-  const hash = bcrypt.hashSync(password);
-  // Create a transaction to update multiple tables - if one fails, all faile
-  db.transaction(trx => {
-    trx.insert({
-      hash: hash,
-      email: email
-    })
-      .into('login')
-      // Returns email as an object in an array
-      .returning('email')
-      .then(loginEmail => {
-        return trx('users')
-          // Return all records
-          .returning('*')
-          // Create a new record
-          .insert({
-            name: name,
-            email: loginEmail[0],
-            joined: new Date()
-          })
-          // Return the first record in the array
-          .then(user => res.json(user[0]))
-      })
-      // Commit the changes if they all pass
-      .then(trx.commit)
-      .catch(trx.rollback)
-  })
-    .catch(err => res.status(400).json('Something went wrong, please try again!'))
-});
+app.post('/signup', (req, res) => register.handleRegister(req, res, db, bcrypt));
 
 app.get('/profile/:id', (req, res) => {
   const {id} = req.params;
