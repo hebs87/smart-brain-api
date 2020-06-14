@@ -23,27 +23,6 @@ app.use(cors())
 // Converts the response body to JSON so Express can read it
 app.use(express.json());
 
-const database = {
-  users: [
-    {
-      id: 1,
-      name: 'Sunny',
-      email: 'sunnyhebbar@hotmail.co.uk',
-      password: 'password',
-      entries: 0,
-      joined: new Date()
-    },
-    {
-      id: 2,
-      name: 'Kim',
-      email: 'kimjones92@hotmail.co.uk',
-      password: 'password',
-      entries: 0,
-      joined: new Date()
-    }
-  ]
-}
-
 app.get('/', (req, res) => {
   res.send(database.users);
 });
