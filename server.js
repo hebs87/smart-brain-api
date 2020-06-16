@@ -36,7 +36,7 @@ app.use(cors())
 // Converts the response body to JSON so Express can read it
 app.use(express.json());
 
-app.get('/', (req, res) => res.send(database.users));
+app.get('/', (req, res) => res.send('It is working'));
 
 // Alternative syntax with curried controller function - req and res arguments are automatically inherited
 app.post('/signin', signin.handleSignIn(db, bcrypt));
