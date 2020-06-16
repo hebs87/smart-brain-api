@@ -21,6 +21,8 @@ dotenv.config();
 //   }
 // });
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
 // DB config for production
 const db = knex({
   client: 'pg',
