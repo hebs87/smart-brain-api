@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+const morgan = require('morgan');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
@@ -37,6 +38,8 @@ const app = express();
 app.use(cors())
 // Converts the response body to JSON so Express can read it
 app.use(express.json());
+// Instantiate morgan for logging
+app.use(morgan('combined'));
 
 app.get('/', (req, res) => res.send('It is working'));
 
