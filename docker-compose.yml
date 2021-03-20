@@ -9,12 +9,15 @@ services:
     # image: node:14
     # We can build our own Dockerfile instead of importing separate images here - specify the dir for the Dockerfile
     build: ./
-    # The command to run when our container is running
-    command: npm start
+    # The command to run when our container is running (-- -L flag fixes issue with nodemon on Windows)
+    command: npm start -- -L
     working_dir: /usr/src/smart-brain-api
     # Port forwarding - specify which port to open the app on locally
     ports:
       - "5000:5000"
+    # Allows us to map our root directory to the docker app root directory to ensure it watches for changes
+    volumes:
+      - ./:/usr/src/smart-brain-api
     # We can declare separate env variables under 'environment', or the .env file we want to use instead
     env_file:
       - .env
