@@ -1,0 +1,20 @@
+# Specify the version of docker compose that we want to run
+version: '3.8'
+
+# We can specify multiple services that we want to orchestrate
+services:
+  # Name for our first service
+  smart-brain-api:
+    container_name: backend
+    # image: node:14
+    # We can build our own Dockerfile instead of importing separate images here - specify the dir for the Dockerfile
+    build: ./
+    # The command to run when our container is running
+    command: npm start
+    working_dir: /usr/src/smart-brain-api
+    # Port forwarding - specify which port to open the app on locally
+    ports:
+      - "5000:5000"
+    # We can declare separate env variables under 'environment', or the .env file we want to use instead
+    env_file:
+      - .env
