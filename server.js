@@ -14,12 +14,7 @@ dotenv.config();
 // DB config for development
 const db = knex({
   client: 'pg',
-  connection: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  }
+  connection: process.env.DATABASE_URL
 });
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
@@ -34,7 +29,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 // });
 
 const app = express();
-console.log('help');
 // Allows CORS for connecting frontend with backend
 app.use(cors())
 // Converts the response body to JSON so Express can read it
