@@ -5,7 +5,7 @@ const handleRegister = (req, res, db, bcrypt) => {
   }
   // Hash the password
   const hash = bcrypt.hashSync(password);
-  // Create a transaction to update multiple tables - if one fails, all faile
+  // Create a transaction to update multiple tables - if one fails, all fail
   db.transaction(trx => {
     trx.insert({
       hash: hash,

@@ -45,6 +45,8 @@ app.post('/signup', (req, res) => register.handleRegister(req, res, db, bcrypt))
 
 app.get('/profile/:id', (req, res) => profile.handleGetProfile(req, res, db));
 
+app.post('/profile/:id', (req, res) => profile.handleUpdateProfile(req, res, db));
+
 app.put('/image', (req, res) => image.incrementImageCount(req, res, db));
 
 // Middleware that listens on specified port
