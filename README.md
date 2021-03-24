@@ -12,6 +12,7 @@ NODE_ENV=development
 JWT_SECRET=JWT_SECRET
 DATABASE_URL=postgres://postgres:root@postgres:5432/smart-brain-docker
 PORT=5000
+REDIS_URI=redis://redis:6379
 ```
 
 2. Create a postgres.env file in the root project directory with the following environment variables:
@@ -38,13 +39,15 @@ If you don't have Docker and are unable to download it:
 1. Start a postgres server
 2. Create a postgres database called smart-brain-docker
 3. Create a users and login table - the table schemas are in the sql files in the `postgres/tables` directory.
-4. Create a .env file in the root project directory with the following environment variables:
+4. Install redis and start the redis server
+5. Create a .env file in the root project directory with the following environment variables:
 ```
 NODE_ENV=development
 JWT_SECRET=JWT_SECRET
 DATABASE_URL=postgres://<user>:<password>@<host>:<port>/smart-brain-docker
 PORT=5000
+REDIS_URI=redis://redis:6379
 ```
-5. Open a new terminal window and run the `npm start` command
-6. Once the app is running, go to http://localhost:5000 to open the running app
-7. To close the app, press `CTRL` + `C` in the terminal window
+6. Open a new terminal window and run the `npm start` command
+7. Once the app is running, go to http://localhost:5000 to open the running app
+8. To close the app, press `CTRL` + `C` in the terminal window
