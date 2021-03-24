@@ -42,7 +42,7 @@ app.use(morgan('combined'));
 app.get('/', (req, res) => res.send('It is working'));
 
 // Alternative syntax with curried controller function - req and res arguments are automatically inherited
-app.post('/signin', signin.handleSignIn(db, bcrypt));
+app.post('/signin', signin.signinAuthentication(db, bcrypt));
 
 app.post('/signup', (req, res) => register.handleRegister(req, res, db, bcrypt));
 

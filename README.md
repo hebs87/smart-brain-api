@@ -8,6 +8,8 @@ You can run the app locally with Docker by using the instructions below.
 
 1. Create a docker.env file in the root project directory with the following environment variables:
 ```
+NODE_ENV=development
+JWT_SECRET=JWT_SECRET
 DATABASE_URL=postgres://postgres:root@postgres:5432/smart-brain-docker
 PORT=5000
 ```
@@ -38,6 +40,8 @@ If you don't have Docker and are unable to download it:
 3. Create a users and login table - the table schemas are in the sql files in the `postgres/tables` directory.
 4. Create a .env file in the root project directory with the following environment variables:
 ```
+NODE_ENV=development
+JWT_SECRET=JWT_SECRET
 DATABASE_URL=postgres://<user>:<password>@<host>:<port>/smart-brain-docker
 PORT=5000
 ```
