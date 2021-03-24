@@ -28,7 +28,9 @@ const handleSignIn = (db, bcrypt, req, res) => {
 
 const getAuthTokenId = (req, res) => {
   const {authorization} = req.headers;
-  return redisClient.get(authorization, (err, reply) => {
+  // Remove Bearer from the token string
+  const token = authorization.replace('Bearer ', '');
+  return redisClient.get(token, (err, reply) => {
     if (err || !reply) {
       return res.status(400).json('Unauthorized');
     }
