@@ -8,6 +8,7 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const auth = require('./controllers/auth');
 
 dotenv.config();
 
@@ -46,11 +47,11 @@ app.post('/signin', signin.signinAuthentication(db, bcrypt));
 
 app.post('/signup', (req, res) => register.handleRegister(req, res, db, bcrypt));
 
-app.get('/profile/:id', (req, res) => profile.handleGetProfile(req, res, db));
+app.get('/profile/:id', auth.requireAuth, (req, res) => profile.handleGetProfile(req, res, db));
 
-app.post('/profile/:id', (req, res) => profile.handleUpdateProfile(req, res, db));
+app.post('/profile/:id', auth.requireAuth, (req, res) => profile.handleUpdateProfile(req, res, db));
 
-app.put('/image', (req, res) => image.incrementImageCount(req, res, db));
+app.put('/image', auth.requireAuth, (req, res) => image.incrementImageCount(req, res, db));
 
 // Middleware that listens on specified port
 app.listen(process.env.PORT, () => {
