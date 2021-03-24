@@ -11,22 +11,25 @@ const image = require('./controllers/image');
 
 dotenv.config();
 
-// DB config for development
-const db = knex({
-  client: 'pg',
-  connection: process.env.DATABASE_URL
-});
+let dbConfig = {};
+if (process.env.NODE_ENV === 'development') {
+  dbConfig = {
+    client: 'pg',
+    connection: process.env.DATABASE_URL
+  };
+} else {
+  dbConfig = {
+    client: 'pg',
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: true
+    }
+  };
+}
+
+const db = knex(dbConfig);
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-
-// DB config for production
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true
-//   }
-// });
 
 const app = express();
 // Allows CORS for connecting frontend with backend
