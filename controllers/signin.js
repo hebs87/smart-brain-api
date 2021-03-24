@@ -36,11 +36,17 @@ const signToken = (email) => {
   return jwt.sign(jwtPayload, process.env.JWT_SECRET, {expiresIn: '2 days'});
 }
 
+const setToken = (id, token) => {
+  return Promise.resolve(redisClient.set(token, id));
+}
+
 const createSessions = (user) => {
   const {id, email} = user;
   // Create a token
   const token = signToken(email);
-  return {success: 'true', userId: id, token};
+  return setToken(id, token)
+    .then(() => ({success: 'true', userId: id, token}))
+    .catch(console.log);
 }
 
 const signinAuthentication = (db, bcrypt) => (req, res) => {
